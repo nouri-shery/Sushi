@@ -1,11 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>The Last Snowflake</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+    <main class="game">
+        <!-- Background -->
+        <div class="sky"></div>
+        <div class="stars"></div>
+        <div class="moon"></div>
+        <div class="mountain"></div>
+        <div class="forest"></div>
+        <!-- Trees -->
+        <div class="trees">
+            <i class="tree tiny"></i>
+            <i class="tree small"></i>
+            <i class="tree"></i>
+            <i class="tree small"></i>
+            <i class="tree tiny"></i>
+            <i class="tree small"></i>
+            <i class="tree"></i>
+        </div>
+        <div class="ground"></div>
+        <!-- Snow particles -->
+        <div class="snow-layer" id="snowLayer"></div>
+        <div class="content">
+            <!-- top bar -->
+            <header class="topbar">
+                <div class="brand">
+                    <h1>The Last Snowflake</h1>
+                </div>
+                <div class="status" id="status"></div>
+                prologue
+        </div>
+        </header>
+        <!--intro-->
+        <section class="intro" id="intro">
+            <div class="eyebrow">
+                A winter interactive story
+            </div>
+            <h1>
+                The Last <br>
+                Snowflake
+            </h1>
+            <p>something went wrong this weinter.
+                The snow is disappearing — and one last
+                snowflake is still glowing somewhere in the forest.
+            </p> <button id="enter" class="enter">
+                Enter the winter →
+            </button>
+
+        </section>
+
+
+        <!-- FOREST -->
+        <section class="scene" id="forestScene">
+
+            <div class="scene-head">
+
+                <div class="eyebrow">
+                    Chapter 01 · The Forest
+                </div>
+
+                <h2>
+                    Something is glowing.
+                </h2>
+
+                <p>
+                    The forest has been silent for days.
+                    But tonight, a small light is moving
+                    between the trees.
+                </p>
+
+                <div class="objective">
+                    <span class="dot"></span>
+                    Find the last snowflake
+                </div>
+
+            </div>
+
+
+            <!-- Snowflake interaction -->
+            <div class="world">
+
+                <button id="snowflake" class="interact" aria-label="Inspect the glowing snowflake">
+                    <span>inspect</span>
+                </button>
+
+            </div>
+
+
+            <!-- CLUE -->
+            <div class="message" id="message">
+
+                <p class="quote">
+                    “The snow didn't disappear.<br />
+                    Someone took it.”
+                </p>
+
+                <small>
+                    Memory fragment 01 / 03
+                </small>
+
+                <br />
+
+                <button id="continue" class="continue">
+                    Keep exploring →
+                </button>
+
+            </div>
+
+
+            <div class="hint">
+                Move your cursor through the snow · click the light
+            </div>
+
+        </section>
+
+
+        <!-- END OF MVP -->
+        <section class="final" id="final">
+
+            <div>
+
+                <div class="eyebrow">
+                    Memory fragment recovered
+                </div>
+
+                <h2>
+                    The winter remembers.
+                </h2>
+
+                <p>
+                    You found the first clue.
+                    Somewhere beyond the forest, there is a cabin —
+                    and someone who knows what happened to the snow.
+                </p>
+
+                <button id="restart" class="restart">
+                    Restart the story
+                </button>
+            
+            </div>
+
+        </section>
+
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
