@@ -256,3 +256,41 @@ showScreen(
   intro,
   "Prologue"
 );
+<<<<<<< HEAD
+=======
+const cluelibrary = [
+  {
+    id :"snowflake",
+    title :"the last snowflake",
+    text : " The snowflake is still alive, but someonr was before you."
+  
+  },
+  {
+    id: "cabin-note ",
+    title : "the old Note ",
+    text :" the snowflack was never  meant to disappear ."
+
+  }
+];
+const discoveredClues =[];
+function discoverClues(clueId){
+  const clue = clueLibrary.find (function(item){
+    return item.id === clueId;
+
+  });
+
+ if (!clue) {
+    return;
+  }
+const alreadyFound = discoveredClues.some(function(item){
+  return item.id === clueId;
+});
+if (alreadyFound) {
+  return;
+}
+  discoveredClues.push(clue);
+
+  console.log("Clue discovered:", clue.title);
+  console.log("Total clues:", discoveredClues.length);
+}
+>>>>>>> master
