@@ -1,6 +1,6 @@
 # ❄️ The Last Snowflake
 
-<<<<<<< HEAD
+
 > Something went wrong this winter.
 
 The snow is disappearing.
@@ -121,4 +121,4 @@ I'm building everything with these basics, learning as I go, and fixing things w
 Made by Nouran Ehab for Hack Club Snowglobe.
 
 This is still a work in progress, and I'm excited to see how far I can take this idea.
->>>>>>> master
+
