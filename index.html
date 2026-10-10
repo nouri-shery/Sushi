@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -368,3 +369,375 @@
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>The Last Snowflake</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <main class="game">
+
+    <!-- Background -->
+    <div class="sky"></div>
+    <div class="stars"></div>
+    <div class="moon"></div>
+
+    <!-- Mountains -->
+    <div class="mountain mountain-back"></div>
+    <div class="mountain mountain-front"></div>
+
+    <!-- Forest -->
+    <div class="forest">
+      <div class="trees">
+        <div class="tree tree-1"></div>
+        <div class="tree tree-2"></div>
+        <div class="tree tree-3"></div>
+        <div class="tree tree-4"></div>
+        <div class="tree tree-5"></div>
+      </div>
+
+      <div class="ground"></div>
+    </div>
+
+    <!-- Snow particles -->
+    <div id="snowLayer"></div>
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="brand">THE LAST SNOWFLAKE</div>
+      <div id="status">Prologue</div>
+    </header>
+
+
+    <!-- ========================= -->
+    <!-- INTRO -->
+    <!-- ========================= -->
+
+    <section id="intro" class="screen active">
+
+      <div class="content intro-content">
+
+        <p class="eyebrow">A SMALL WINTER STORY</p>
+
+        <h1>
+          The Last<br />
+          Snowflake
+        </h1>
+
+        <p class="intro-text">
+          Something went wrong this winter.
+          The snow is disappearing.
+        </p>
+
+        <button id="enter" class="main-button">
+          Enter the forest
+          <span>→</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- CHAPTER 01 — FOREST -->
+    <!-- ========================= -->
+
+    <section id="forestScene" class="screen">
+
+      <div class="scene-head">
+
+        <div>
+          <p class="chapter">CHAPTER 01</p>
+          <h2>The Forest</h2>
+        </div>
+
+        <div class="objective">
+          <span class="dot"></span>
+          Find the last snowflake
+        </div>
+
+      </div>
+
+
+      <div class="world">
+
+        <!-- Snowflake -->
+        <button id="snowflake" class="snowflake interact" aria-label="Glowing snowflake">
+          ❄
+        </button>
+
+        <!-- Footprints -->
+        <div class="footprints">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <!-- Forest message -->
+        <div id="forestMessage" class="message">
+          <p class="message-label">YOU FOUND SOMETHING</p>
+
+          <h3>
+            The snowflake is still alive.
+          </h3>
+
+          <p>
+            But someone was here before you.
+          </p>
+
+          <button id="continueForest" class="small-button">
+            Follow the footprints →
+          </button>
+        </div>
+
+      </div>
+
+      <p class="hint">
+        Look around. Something is waiting.
+      </p>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- CHAPTER 02 — CABIN -->
+    <!-- ========================= -->
+
+    <section id="cabinScene" class="screen">
+
+      <div class="scene-head">
+
+        <div>
+          <p class="chapter">CHAPTER 02</p>
+          <h2>The Cabin</h2>
+        </div>
+
+        <div class="objective">
+          <span class="dot"></span>
+          Find out what happened
+        </div>
+
+      </div>
+
+
+      <div class="cabin-world">
+
+        <!-- Cabin -->
+        <div class="cabin">
+
+          <div class="cabin-roof"></div>
+
+          <div class="cabin-body">
+
+            <div class="window window-left">
+              <span></span>
+            </div>
+
+            <div class="window window-right">
+              <span></span>
+            </div>
+
+            <button id="cabinDoor" class="cabin-door interact">
+              <span class="door-handle"></span>
+            </button>
+
+          </div>
+
+          <div class="cabin-snow"></div>
+
+        </div>
+
+
+        <!-- Smoke -->
+        <div class="smoke">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+
+        <!-- Footprints leading to cabin -->
+        <div class="cabin-footprints">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+
+        <!-- Cabin message -->
+        <div id="cabinMessage" class="message cabin-message">
+
+          <p class="message-label">THE CABIN</p>
+
+          <h3>
+            The door is already open.
+          </h3>
+
+          <p>
+            You feel a cold wind coming from inside.
+          </p>
+
+          <button id="enterCabin" class="small-button">
+            Go inside →
+          </button>
+
+        </div>
+
+      </div>
+
+      <p class="hint">
+        Someone was here.
+      </p>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- CABIN INTERIOR -->
+    <!-- ========================= -->
+
+    <section id="interiorScene" class="screen">
+
+      <div class="scene-head">
+
+        <div>
+          <p class="chapter">CHAPTER 02</p>
+          <h2>Inside</h2>
+        </div>
+
+        <div class="objective">
+          <span class="dot"></span>
+          Search the cabin
+        </div>
+
+      </div>
+
+
+      <div class="interior-world">
+
+        <!-- Fireplace -->
+        <button id="fireplace" class="object fireplace interact">
+          <span class="fire"></span>
+        </button>
+
+
+        <!-- Table -->
+        <div class="table">
+
+          <button id="note" class="object note interact">
+            ✦
+          </button>
+
+        </div>
+
+
+        <!-- Window -->
+        <div class="interior-window">
+          <div class="window-snow"></div>
+        </div>
+
+
+        <!-- Note message -->
+        <div id="noteMessage" class="message note-message">
+
+          <p class="message-label">MEMORY FRAGMENT 02 / 03</p>
+
+          <h3>
+            “The snowflake was never meant to disappear.”
+          </h3>
+
+          <p>
+            Under the note, you find a strange symbol pointing toward the mountain.
+          </p>
+
+          <button id="continueCabin" class="small-button">
+            Go to the mountain →
+          </button>
+
+        </div>
+
+      </div>
+
+      <p class="hint">
+        Search the room carefully.
+      </p>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- CHAPTER 03 — MOUNTAIN -->
+    <!-- ========================= -->
+
+    <section id="mountainScene" class="screen">
+
+      <div class="scene-head">
+
+        <div>
+          <p class="chapter">CHAPTER 03</p>
+          <h2>The Mountain</h2>
+        </div>
+
+        <div class="objective">
+          <span class="dot"></span>
+          Follow the symbol
+        </div>
+
+      </div>
+
+
+      <div class="mountain-world">
+
+        <div class="big-mountain"></div>
+
+        <div class="mountain-path"></div>
+
+        <button id="mountainSymbol" class="mountain-symbol interact">
+          ✦
+        </button>
+
+        <div id="mountainMessage" class="message">
+
+          <p class="message-label">THE MOUNTAIN</p>
+
+          <h3>
+            You finally found the source.
+          </h3>
+
+          <p>
+            But the last answer is waiting beneath the ice.
+          </p>
+
+          <button id="restart" class="small-button">
+            Start again ↻
+          </button>
+
+        </div>
+
+      </div>
+
+      <p class="hint">
+        The story is not over.
+      </p>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+>>>>>>> master
