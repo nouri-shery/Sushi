@@ -256,8 +256,7 @@ showScreen(
   intro,
   "Prologue"
 );
-<<<<<<< HEAD
-=======
+
 const cluelibrary = [
   {
     id :"snowflake",
@@ -293,4 +292,3 @@ if (alreadyFound) {
   console.log("Clue discovered:", clue.title);
   console.log("Total clues:", discoveredClues.length);
 }
->>>>>>> master
