@@ -257,7 +257,7 @@ showScreen(
   "Prologue"
 );
 
-const cluelibrary = [
+const clueLibrary = [
   {
     id :"snowflake",
     title :"the last snowflake",
