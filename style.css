@@ -1023,3 +1023,13 @@ h1 {
   }
 }
 
+.topbar-right{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.clue-button{
+  padding:8px 12px;
+  color:var(--snow);
+  background: rgba(233, 213, 155, .7);)
+}
