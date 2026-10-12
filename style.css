@@ -986,7 +986,7 @@ h1 {
 
   .scene-head {
     padding: 90px 25px 0;
-    align-items: start;
+    align-items: flex-start;
     gap: 20px;
   }
 
@@ -1021,8 +1021,5 @@ h1 {
   .hint {
     display: none;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
+
