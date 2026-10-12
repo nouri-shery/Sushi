@@ -1,3 +1,4 @@
+
 const intro = document.getElementById("intro");
 const forestScene = document.getElementById("forestScene");
 const cabinScene = document.getElementById("cabinScene");
@@ -5,7 +6,6 @@ const interiorScene = document.getElementById("interiorScene");
 const mountainScene = document.getElementById("mountainScene");
 
 const status = document.getElementById("status");
-
 const enterButton = document.getElementById("enter");
 
 const snowflake = document.getElementById("snowflake");
@@ -25,7 +25,6 @@ const mountainMessage = document.getElementById("mountainMessage");
 
 const restart = document.getElementById("restart");
 
-
 /* =========================
    GAME STATE
 ========================= */
@@ -37,13 +36,54 @@ const gameState = {
   foundNote: false
 };
 
+/* =========================
+   CLUE SYSTEM
+========================= */
+
+const clueLibrary = [
+  {
+    id: "snowflake",
+    title: "The Last Snowflake",
+    text: "The snowflake is still alive, but someone was here before you."
+  },
+  {
+    id: "cabin-note",
+    title: "The Old Note",
+    text: "The snowflake was never meant to disappear."
+  }
+];
+
+const discoveredClues = [];
+
+function discoverClues(clueId) {
+  const clue = clueLibrary.find(function(item) {
+    return item.id === clueId;
+  });
+
+  if (!clue) {
+    return;
+  }
+
+  const alreadyFound = discoveredClues.some(function(item) {
+    return item.id === clueId;
+  });
+
+  if (alreadyFound) {
+    return;
+  }
+
+  discoveredClues.push(clue);
+
+  console.log("Clue discovered:", clue.title);
+  console.log("Clue text:", clue.text);
+  console.log("Total clues:", discoveredClues.length);
+}
 
 /* =========================
    SCREEN SYSTEM
 ========================= */
 
 function showScreen(screen, chapterName) {
-
   const screens = [
     intro,
     forestScene,
@@ -53,25 +93,35 @@ function showScreen(screen, chapterName) {
   ];
 
   screens.forEach(function(currentScreen) {
-    currentScreen.classList.remove("active");
+    if (currentScreen) {
+      currentScreen.classList.remove("active");
+    }
   });
 
-  screen.classList.add("active");
+  if (screen) {
+    screen.classList.add("active");
+  }
 
-  status.textContent = chapterName;
+  if (status) {
+    status.textContent = chapterName;
+  }
 }
-
 
 /* =========================
    SNOW
 ========================= */
 
 function createSnow() {
-
   const snowLayer = document.getElementById("snowLayer");
 
-  for (let i = 0; i < 90; i++) {
+  if (!snowLayer) {
+    return;
+  }
 
+  // Prevent duplicate snowflakes if this function runs again.
+  snowLayer.innerHTML = "";
+
+  for (let i = 0; i < 90; i++) {
     const flake = document.createElement("i");
 
     flake.classList.add("flake");
@@ -91,204 +141,181 @@ function createSnow() {
   }
 }
 
-
 /* =========================
    INTRO → FOREST
 ========================= */
 
-enterButton.addEventListener("click", function() {
+if (enterButton) {
+  enterButton.addEventListener("click", function() {
+    gameState.chapter = 1;
 
-  gameState.chapter = 1;
-
-  showScreen(
-    forestScene,
-    "Chapter 01 · Forest"
-  );
-
-});
-
+    showScreen(forestScene, "Chapter 01 · Forest");
+  });
+}
 
 /* =========================
    FIND SNOWFLAKE
 ========================= */
 
-snowflake.addEventListener("click", function() {
+if (snowflake) {
+  snowflake.addEventListener("click", function() {
+    if (gameState.foundSnowflake) {
+      return;
+    }
 
-  gameState.foundSnowflake = true;
+    gameState.foundSnowflake = true;
 
-  forestMessage.classList.add("show");
+    discoverClues("snowflake");
 
-  snowflake.style.opacity = "0";
-  snowflake.style.pointerEvents = "none";
+    if (forestMessage) {
+      forestMessage.classList.add("show");
+    }
 
-});
-
+    snowflake.style.opacity = "0";
+    snowflake.style.pointerEvents = "none";
+  });
+}
 
 /* =========================
    FOREST → CABIN
 ========================= */
 
-continueForest.addEventListener("click", function() {
+if (continueForest) {
+  continueForest.addEventListener("click", function() {
+    if (!gameState.foundSnowflake) {
+      return;
+    }
 
-  if (!gameState.foundSnowflake) {
-    return;
-  }
+    gameState.chapter = 2;
 
-  gameState.chapter = 2;
-
-  showScreen(
-    cabinScene,
-    "Chapter 02 · Cabin"
-  );
-
-});
-
+    showScreen(cabinScene, "Chapter 02 · Cabin");
+  });
+}
 
 /* =========================
    OPEN CABIN DOOR
 ========================= */
 
-cabinDoor.addEventListener("click", function() {
+if (cabinDoor) {
+  cabinDoor.addEventListener("click", function() {
+    if (gameState.foundCabin) {
+      return;
+    }
 
-  gameState.foundCabin = true;
+    gameState.foundCabin = true;
 
-  cabinMessage.classList.add("show");
-
-});
-
+    if (cabinMessage) {
+      cabinMessage.classList.add("show");
+    }
+  });
+}
 
 /* =========================
    CABIN → INTERIOR
 ========================= */
 
-enterCabin.addEventListener("click", function() {
+if (enterCabin) {
+  enterCabin.addEventListener("click", function() {
+    if (!gameState.foundCabin) {
+      return;
+    }
 
-  if (!gameState.foundCabin) {
-    return;
-  }
-
-  showScreen(
-    interiorScene,
-    "Chapter 02 · Inside"
-  );
-
-});
-
+    showScreen(interiorScene, "Chapter 02 · Inside");
+  });
+}
 
 /* =========================
    FIND NOTE
 ========================= */
 
-note.addEventListener("click", function() {
+if (note) {
+  note.addEventListener("click", function() {
+    if (gameState.foundNote) {
+      return;
+    }
 
-  gameState.foundNote = true;
+    gameState.foundNote = true;
 
-  noteMessage.classList.add("show");
+    discoverClues("cabin-note");
 
-});
-
+    if (noteMessage) {
+      noteMessage.classList.add("show");
+    }
+  });
+}
 
 /* =========================
    INTERIOR → MOUNTAIN
 ========================= */
 
-continueCabin.addEventListener("click", function() {
+if (continueCabin) {
+  continueCabin.addEventListener("click", function() {
+    if (!gameState.foundNote) {
+      return;
+    }
 
-  if (!gameState.foundNote) {
-    return;
-  }
+    gameState.chapter = 3;
 
-  gameState.chapter = 3;
-
-  showScreen(
-    mountainScene,
-    "Chapter 03 · Mountain"
-  );
-
-});
-
+    showScreen(mountainScene, "Chapter 03 · Mountain");
+  });
+}
 
 /* =========================
    MOUNTAIN SYMBOL
 ========================= */
 
-mountainSymbol.addEventListener("click", function() {
-
-  mountainMessage.classList.add("show");
-
-});
-
+if (mountainSymbol) {
+  mountainSymbol.addEventListener("click", function() {
+    if (mountainMessage) {
+      mountainMessage.classList.add("show");
+    }
+  });
+}
 
 /* =========================
    RESTART
 ========================= */
 
-restart.addEventListener("click", function() {
+if (restart) {
+  restart.addEventListener("click", function() {
+    gameState.chapter = 0;
+    gameState.foundSnowflake = false;
+    gameState.foundCabin = false;
+    gameState.foundNote = false;
 
-  gameState.chapter = 0;
-  gameState.foundSnowflake = false;
-  gameState.foundCabin = false;
-  gameState.foundNote = false;
+    // Clear collected clues.
+    discoveredClues.length = 0;
 
-  forestMessage.classList.remove("show");
-  cabinMessage.classList.remove("show");
-  noteMessage.classList.remove("show");
-  mountainMessage.classList.remove("show");
+    if (forestMessage) {
+      forestMessage.classList.remove("show");
+    }
 
-  snowflake.style.opacity = "1";
-  snowflake.style.pointerEvents = "auto";
+    if (cabinMessage) {
+      cabinMessage.classList.remove("show");
+    }
 
-  showScreen(
-    intro,
-    "Prologue"
-  );
+    if (noteMessage) {
+      noteMessage.classList.remove("show");
+    }
 
-});
+    if (mountainMessage) {
+      mountainMessage.classList.remove("show");
+    }
 
+    if (snowflake) {
+      snowflake.style.opacity = "1";
+      snowflake.style.pointerEvents = "auto";
+    }
+
+    showScreen(intro, "Prologue");
+
+    console.log("Game restarted. All clues cleared.");
+  });
+}
 
 /* =========================
-   START
+   START GAME
 ========================= */
 
 createSnow();
-
-showScreen(
-  intro,
-  "Prologue"
-);
-
-const clueLibrary = [
-  {
-    id :"snowflake",
-    title :"the last snowflake",
-    text : " The snowflake is still alive, but someonr was before you."
-  
-  },
-  {
-    id: "cabin-note ",
-    title : "the old Note ",
-    text :" the snowflack was never  meant to disappear ."
-
-  }
-];
-const discoveredClues =[];
-function discoverClues(clueId){
-  const clue = clueLibrary.find (function(item){
-    return item.id === clueId;
-
-  });
-
- if (!clue) {
-    return;
-  }
-const alreadyFound = discoveredClues.some(function(item){
-  return item.id === clueId;
-});
-if (alreadyFound) {
-  return;
-}
-  discoveredClues.push(clue);
-
-  console.log("Clue discovered:", clue.title);
-  console.log("Total clues:", discoveredClues.length);
-}
+showScreen(intro, "Prologue");
