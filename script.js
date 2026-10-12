@@ -319,3 +319,4 @@ if (restart) {
 
 createSnow();
 showScreen(intro, "Prologue");
+ 

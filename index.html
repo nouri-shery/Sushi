@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,11 +41,28 @@
 
     <!-- Top bar -->
     <header class="topbar">
-      <div class="brand">THE LAST SNOWFLAKE</div>
-      <div id="status">Prologue</div>
+      <div class="brand">
+        THE LAST SNOWFLAKE
+      </div>
+      <div class="topbar-right">
+        <button id="cluesButton" class="clues-button">
+          Clues <span id="clueCount">0</span>
+        </button>
+        <div id="status">prologue</div>
+      </div>
     </header>
+    <aside id="cluesPanel" class="clues">
+    
+<aside id="cluesPanel" class="clues-panel">
+  <div class="clues-header">
+    <h3>Your clues</h3>
+    <button id="closeClues" aria-label="Close clues">×</button>
+  </div>
 
+  <p id="emptyClues">You haven't found anything yet.</p>
 
+  <ul id="cluesList"></ul>
+</aside>
     <!-- ========================= -->
     <!-- INTRO -->
     <!-- ========================= -->
@@ -367,10 +385,12 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>
 =======
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -738,4 +758,5 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>
