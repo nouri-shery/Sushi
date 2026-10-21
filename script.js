@@ -1,3 +1,11 @@
+/* =========================
+   THE LAST SNOWFLAKE
+   Main JavaScript
+========================= */
+
+/* =========================
+   HTML ELEMENTS
+========================= */
 
 const intro = document.getElementById("intro");
 const forestScene = document.getElementById("forestScene");
@@ -25,6 +33,19 @@ const mountainMessage = document.getElementById("mountainMessage");
 
 const restart = document.getElementById("restart");
 
+const cluesButton = document.getElementById("cluesButton");
+const cluesPanel = document.getElementById("cluesPanel");
+const closeClues = document.getElementById("closeClues");
+const clueCount = document.getElementById("clueCount");
+const cluesList = document.getElementById("cluesList");
+const emptyClues = document.getElementById("emptyClues");
+
+const fireplace = document.getElementById("fireplace");
+const puzzlePanel = document.getElementById("puzzlePanel");
+const puzzleFeedback = document.getElementById("puzzleFeedback");
+const closePuzzle = document.getElementById("closePuzzle");
+const puzzleOptions = document.querySelectorAll(".puzzle-option");
+
 /* =========================
    GAME STATE
 ========================= */
@@ -33,11 +54,13 @@ const gameState = {
   chapter: 0,
   foundSnowflake: false,
   foundCabin: false,
-  foundNote: false
+  foundNote: false,
+  puzzleSolved: false,
+  clues: []
 };
 
 /* =========================
-   CLUE SYSTEM
+   CLUE LIBRARY
 ========================= */
 
 const clueLibrary = [
@@ -50,21 +73,29 @@ const clueLibrary = [
     id: "cabin-note",
     title: "The Old Note",
     text: "The snowflake was never meant to disappear."
+  },
+  {
+    id: "footprints",
+    title: "The Footprints",
+    text: "Every journey leaves a trace. Someone crossed the snow before you."
   }
 ];
 
-const discoveredClues = [];
+/* =========================
+   CLUE SYSTEM
+========================= */
 
 function discoverClues(clueId) {
-  const clue = clueLibrary.find(function(item) {
+  const clue = clueLibrary.find(function (item) {
     return item.id === clueId;
   });
 
   if (!clue) {
+    console.warn("Clue not found:", clueId);
     return;
   }
 
-  const alreadyFound = discoveredClues.some(function(item) {
+  const alreadyFound = gameState.clues.some(function (item) {
     return item.id === clueId;
   });
 
@@ -72,11 +103,35 @@ function discoverClues(clueId) {
     return;
   }
 
-  discoveredClues.push(clue);
+  gameState.clues.push(clue);
+
+  renderClues();
 
   console.log("Clue discovered:", clue.title);
-  console.log("Clue text:", clue.text);
-  console.log("Total clues:", discoveredClues.length);
+  console.log("Total clues:", gameState.clues.length);
+}
+
+function renderClues() {
+  if (!cluesList || !clueCount || !emptyClues) {
+    return;
+  }
+
+  cluesList.replaceChildren();
+
+  clueCount.textContent = gameState.clues.length;
+  emptyClues.hidden = gameState.clues.length > 0;
+
+  gameState.clues.forEach(function (clue) {
+    const item = document.createElement("li");
+    const title = document.createElement("strong");
+    const description = document.createElement("p");
+
+    title.textContent = clue.title;
+    description.textContent = clue.text;
+
+    item.append(title, description);
+    cluesList.appendChild(item);
+  });
 }
 
 /* =========================
@@ -92,7 +147,7 @@ function showScreen(screen, chapterName) {
     mountainScene
   ];
 
-  screens.forEach(function(currentScreen) {
+  screens.forEach(function (currentScreen) {
     if (currentScreen) {
       currentScreen.classList.remove("active");
     }
@@ -108,7 +163,7 @@ function showScreen(screen, chapterName) {
 }
 
 /* =========================
-   SNOW
+   SNOW EFFECT
 ========================= */
 
 function createSnow() {
@@ -118,12 +173,10 @@ function createSnow() {
     return;
   }
 
-  // Prevent duplicate snowflakes if this function runs again.
-  snowLayer.innerHTML = "";
+  snowLayer.replaceChildren();
 
   for (let i = 0; i < 90; i++) {
     const flake = document.createElement("i");
-
     flake.classList.add("flake");
 
     const size = Math.random() * 4 + 2;
@@ -146,7 +199,7 @@ function createSnow() {
 ========================= */
 
 if (enterButton) {
-  enterButton.addEventListener("click", function() {
+  enterButton.addEventListener("click", function () {
     gameState.chapter = 1;
 
     showScreen(forestScene, "Chapter 01 · Forest");
@@ -154,11 +207,11 @@ if (enterButton) {
 }
 
 /* =========================
-   FIND SNOWFLAKE
+   FIND THE LAST SNOWFLAKE
 ========================= */
 
 if (snowflake) {
-  snowflake.addEventListener("click", function() {
+  snowflake.addEventListener("click", function () {
     if (gameState.foundSnowflake) {
       return;
     }
@@ -181,7 +234,7 @@ if (snowflake) {
 ========================= */
 
 if (continueForest) {
-  continueForest.addEventListener("click", function() {
+  continueForest.addEventListener("click", function () {
     if (!gameState.foundSnowflake) {
       return;
     }
@@ -197,7 +250,7 @@ if (continueForest) {
 ========================= */
 
 if (cabinDoor) {
-  cabinDoor.addEventListener("click", function() {
+  cabinDoor.addEventListener("click", function () {
     if (gameState.foundCabin) {
       return;
     }
@@ -215,7 +268,7 @@ if (cabinDoor) {
 ========================= */
 
 if (enterCabin) {
-  enterCabin.addEventListener("click", function() {
+  enterCabin.addEventListener("click", function () {
     if (!gameState.foundCabin) {
       return;
     }
@@ -225,11 +278,79 @@ if (enterCabin) {
 }
 
 /* =========================
-   FIND NOTE
+   FIREPLACE RIDDLE
+========================= */
+
+if (fireplace && puzzlePanel) {
+  fireplace.addEventListener("click", function () {
+    if (gameState.puzzleSolved && puzzleFeedback) {
+      puzzleFeedback.textContent =
+        "The riddle is solved. Look for the note.";
+
+      puzzleFeedback.classList.add("success");
+    }
+
+    puzzlePanel.hidden = false;
+  });
+}
+
+puzzleOptions.forEach(function (option) {
+  option.addEventListener("click", function () {
+    if (gameState.puzzleSolved) {
+      return;
+    }
+
+    const answer = option.dataset.answer;
+
+    if (answer === "footprints") {
+      gameState.puzzleSolved = true;
+
+      if (puzzleFeedback) {
+        puzzleFeedback.textContent =
+          "Correct. Every journey leaves a trace.";
+
+        puzzleFeedback.classList.add("success");
+      }
+
+      discoverClues("footprints");
+    } else {
+      if (puzzleFeedback) {
+        puzzleFeedback.textContent =
+          "Not quite. Think about what you leave behind.";
+
+        puzzleFeedback.classList.remove("success");
+      }
+    }
+  });
+});
+
+if (closePuzzle && puzzlePanel) {
+  closePuzzle.addEventListener("click", function () {
+    puzzlePanel.hidden = true;
+  });
+}
+
+/* =========================
+   FIND THE OLD NOTE
 ========================= */
 
 if (note) {
-  note.addEventListener("click", function() {
+  note.addEventListener("click", function () {
+    if (!gameState.puzzleSolved) {
+      if (puzzlePanel) {
+        puzzlePanel.hidden = false;
+      }
+
+      if (puzzleFeedback) {
+        puzzleFeedback.textContent =
+          "The note is sealed in silence. Solve the fireplace riddle first.";
+
+        puzzleFeedback.classList.remove("success");
+      }
+
+      return;
+    }
+
     if (gameState.foundNote) {
       return;
     }
@@ -249,7 +370,7 @@ if (note) {
 ========================= */
 
 if (continueCabin) {
-  continueCabin.addEventListener("click", function() {
+  continueCabin.addEventListener("click", function () {
     if (!gameState.foundNote) {
       return;
     }
@@ -265,7 +386,7 @@ if (continueCabin) {
 ========================= */
 
 if (mountainSymbol) {
-  mountainSymbol.addEventListener("click", function() {
+  mountainSymbol.addEventListener("click", function () {
     if (mountainMessage) {
       mountainMessage.classList.add("show");
     }
@@ -273,18 +394,49 @@ if (mountainSymbol) {
 }
 
 /* =========================
-   RESTART
+   CLUES PANEL
+========================= */
+
+if (cluesButton && cluesPanel) {
+  cluesButton.addEventListener("click", function () {
+    cluesPanel.classList.toggle("open");
+  });
+}
+
+if (closeClues && cluesPanel) {
+  closeClues.addEventListener("click", function () {
+    cluesPanel.classList.remove("open");
+  });
+}
+
+/* =========================
+   RESTART GAME
 ========================= */
 
 if (restart) {
-  restart.addEventListener("click", function() {
+  restart.addEventListener("click", function () {
     gameState.chapter = 0;
     gameState.foundSnowflake = false;
     gameState.foundCabin = false;
     gameState.foundNote = false;
+    gameState.puzzleSolved = false;
 
-    // Clear collected clues.
-    discoveredClues.length = 0;
+    gameState.clues.length = 0;
+
+    if (puzzlePanel) {
+      puzzlePanel.hidden = true;
+    }
+
+    if (puzzleFeedback) {
+      puzzleFeedback.textContent = "";
+      puzzleFeedback.classList.remove("success");
+    }
+
+    renderClues();
+
+    if (cluesPanel) {
+      cluesPanel.classList.remove("open");
+    }
 
     if (forestMessage) {
       forestMessage.classList.remove("show");
@@ -318,5 +470,5 @@ if (restart) {
 ========================= */
 
 createSnow();
+renderClues();
 showScreen(intro, "Prologue");
- 

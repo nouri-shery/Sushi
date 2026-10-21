@@ -1033,3 +1033,271 @@ h1 {
   color:var(--snow);
   background: rgba(233, 213, 155, .7);
 }
+
+#clueCount {
+  margin-left: 6px;
+  color: var(--gold);
+}
+
+.clues-panel {
+  position: absolute;
+  z-index: 70;
+  top: 75px;
+  right: 35px;
+
+  width: min(340px, calc(100% - 40px));
+  padding: 22px;
+
+  color: var(--snow);
+  background: rgba(7, 21, 37, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: 0.25s ease;
+}
+
+.clues-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.clues-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.clues-header h3 {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+#closeClues {
+  color: var(--snow);
+  background: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#emptyClues,
+#cluesList {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+#cluesList {
+  padding-left: 18px;
+}
+
+#cluesList li {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    left: 20px;
+    right: 20px;
+  }
+
+  .topbar-right {
+    gap: 10px;
+  }
+
+  .clues-panel {
+    right: 20px;
+  }
+}/* Clues panel */
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.clues-button {
+  padding: 8px 12px;
+  color: var(--snow);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+#clueCount {
+  margin-left: 6px;
+  color: var(--gold);
+}
+
+.clues-panel {
+  position: absolute;
+  z-index: 70;
+  top: 75px;
+  right: 35px;
+
+  width: min(340px, calc(100% - 40px));
+  padding: 22px;
+
+  color: var(--snow);
+  background: rgba(7, 21, 37, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: 0.25s ease;
+}
+
+.clues-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.clues-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.clues-header h3 {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+#closeClues {
+  color: var(--snow);
+  background: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#emptyClues,
+#cluesList {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+#cluesList {
+  padding-left: 18px;
+}
+
+#cluesList li {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    left: 20px;
+    right: 20px;
+  }
+
+  .topbar-right {
+    gap: 10px;
+  }
+
+  .clues-panel {
+    right: 20px;
+  }
+}
+
+.puzzle-panel {
+  position: absolute;
+  z-index: 80;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, 88%);
+  padding: 28px;
+  background: rgba(7, 21, 37, 0.97);
+  border: 1px solid rgba(200, 223, 240, 0.35);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
+}
+
+.puzzle-panel[hidden] {
+  display: none;
+}
+
+.puzzle-panel h3 {
+  margin-top: 14px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.puzzle-panel > p:not(.message-label) {
+  margin-top: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.puzzle-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.puzzle-option {
+  padding: 12px;
+  text-align: left;
+  color: var(--snow);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+}
+
+.puzzle-option:hover {
+  background: rgba(200, 223, 240, 0.14);
+}
+
+#puzzleFeedback {
+  min-height: 24px;
+  font-size: 13px;
+}
+
+#puzzleFeedback.success {
+  color: var(--gold);
+}
+.clues-button {
+  padding: 8px 12px;
+  color: var(--snow);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+.clues-panel {
+  position: absolute;
+  z-index: 70;
+  top: 75px;
+  right: 35px;
+  width: min(340px, calc(100% - 40px));
+  padding: 22px;
+  color: var(--snow);
+  background: rgba(7, 21, 37, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: 0.25s ease;
+}
+
+.clues-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.puzzle-panel[hidden] {
+  display: none;
+}
