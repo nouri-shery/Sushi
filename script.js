@@ -1,11 +1,4 @@
-/* =========================
-   THE LAST SNOWFLAKE
-   Main JavaScript
-========================= */
 
-/* =========================
-   HTML ELEMENTS
-========================= */
 
 const intro = document.getElementById("intro");
 const forestScene = document.getElementById("forestScene");
@@ -24,13 +17,18 @@ const cabinDoor = document.getElementById("cabinDoor");
 const cabinMessage = document.getElementById("cabinMessage");
 const enterCabin = document.getElementById("enterCabin");
 
+const fireplace = document.getElementById("fireplace");
+const puzzlePanel = document.getElementById("puzzlePanel");
+const puzzleFeedback = document.getElementById("puzzleFeedback");
+const closePuzzle = document.getElementById("closePuzzle");
+const puzzleOptions = document.querySelectorAll(".puzzle-option");
+
 const note = document.getElementById("note");
 const noteMessage = document.getElementById("noteMessage");
 const continueCabin = document.getElementById("continueCabin");
 
 const mountainSymbol = document.getElementById("mountainSymbol");
 const mountainMessage = document.getElementById("mountainMessage");
-
 const restart = document.getElementById("restart");
 
 const cluesButton = document.getElementById("cluesButton");
@@ -40,105 +38,53 @@ const clueCount = document.getElementById("clueCount");
 const cluesList = document.getElementById("cluesList");
 const emptyClues = document.getElementById("emptyClues");
 
-const fireplace = document.getElementById("fireplace");
-const puzzlePanel = document.getElementById("puzzlePanel");
-const puzzleFeedback = document.getElementById("puzzleFeedback");
-const closePuzzle = document.getElementById("closePuzzle");
-const puzzleOptions = document.querySelectorAll(".puzzle-option");
 
-/* =========================
-   GAME STATE
-========================= */
+/* =========================================
+   2. GAME STATE
+   The current progress of the player
+========================================= */
 
 const gameState = {
   chapter: 0,
   foundSnowflake: false,
   foundCabin: false,
-  foundNote: false,
   puzzleSolved: false,
+  foundNote: false,
+  mountainUnlocked: false,
+  gameCompleted: false,
   clues: []
 };
 
-/* =========================
-   CLUE LIBRARY
-========================= */
+
+/* =========================================
+   3. CLUE LIBRARY
+   All clues the player can discover
+========================================= */
 
 const clueLibrary = [
   {
     id: "snowflake",
     title: "The Last Snowflake",
-    text: "The snowflake is still alive, but someone was here before you."
-  },
-  {
-    id: "cabin-note",
-    title: "The Old Note",
-    text: "The snowflake was never meant to disappear."
+    text: "The snowflake is still alive. Someone was here before you."
   },
   {
     id: "footprints",
     title: "The Footprints",
     text: "Every journey leaves a trace. Someone crossed the snow before you."
+  },
+  {
+    id: "cabin-note",
+    title: "The Old Note",
+    text: "The snowflake was never meant to disappear. Its secret is hidden beneath the ice."
   }
 ];
 
-/* =========================
-   CLUE SYSTEM
-========================= */
 
-function discoverClues(clueId) {
-  const clue = clueLibrary.find(function (item) {
-    return item.id === clueId;
-  });
+/* =========================================
+   4. SCREEN MANAGEMENT
+========================================= */
 
-  if (!clue) {
-    console.warn("Clue not found:", clueId);
-    return;
-  }
-
-  const alreadyFound = gameState.clues.some(function (item) {
-    return item.id === clueId;
-  });
-
-  if (alreadyFound) {
-    return;
-  }
-
-  gameState.clues.push(clue);
-
-  renderClues();
-
-  console.log("Clue discovered:", clue.title);
-  console.log("Total clues:", gameState.clues.length);
-}
-
-function renderClues() {
-  if (!cluesList || !clueCount || !emptyClues) {
-    return;
-  }
-
-  cluesList.replaceChildren();
-
-  clueCount.textContent = gameState.clues.length;
-  emptyClues.hidden = gameState.clues.length > 0;
-
-  gameState.clues.forEach(function (clue) {
-    const item = document.createElement("li");
-    const title = document.createElement("strong");
-    const description = document.createElement("p");
-
-    title.textContent = clue.title;
-    description.textContent = clue.text;
-
-    item.append(title, description);
-    cluesList.appendChild(item);
-  });
-}
-
-/* =========================
-   SCREEN SYSTEM
-========================= */
-
-function showScreen(screen, chapterName) {
+function showScreen(screen, chapterName, chapterNumber) {
   const screens = [
     intro,
     forestScene,
@@ -160,23 +106,123 @@ function showScreen(screen, chapterName) {
   if (status) {
     status.textContent = chapterName;
   }
+
+  if (typeof chapterNumber === "number") {
+    gameState.chapter = chapterNumber;
+  }
 }
 
-/* =========================
-   SNOW EFFECT
-========================= */
+
+/* =========================================
+   5. CLUE SYSTEM
+========================================= */
+
+function discoverClue(clueId) {
+  const clue = clueLibrary.find(function (item) {
+    return item.id === clueId;
+  });
+
+  if (!clue) {
+    console.warn("Unknown clue:", clueId);
+    return false;
+  }
+
+  const alreadyFound = gameState.clues.some(function (item) {
+    return item.id === clueId;
+  });
+
+  if (alreadyFound) {
+    return false;
+  }
+
+  gameState.clues.push(clue);
+
+  renderClues();
+
+  console.log("New clue discovered:", clue.title);
+
+  return true;
+}
+
+
+function hasClue(clueId) {
+  return gameState.clues.some(function (clue) {
+    return clue.id === clueId;
+  });
+}
+
+
+function renderClues() {
+  if (!cluesList || !clueCount || !emptyClues) {
+    return;
+  }
+
+  cluesList.replaceChildren();
+
+  clueCount.textContent = String(gameState.clues.length);
+
+  emptyClues.hidden = gameState.clues.length > 0;
+
+  gameState.clues.forEach(function (clue) {
+    const item = document.createElement("li");
+    const title = document.createElement("strong");
+    const description = document.createElement("p");
+
+    title.textContent = clue.title;
+    description.textContent = clue.text;
+
+    item.append(title, description);
+    cluesList.appendChild(item);
+  });
+}
+
+
+/* =========================================
+   6. CLUES PANEL
+========================================= */
+
+function openCluesPanel() {
+  if (cluesPanel) {
+    cluesPanel.classList.add("open");
+  }
+}
+
+
+function closeCluesPanel() {
+  if (cluesPanel) {
+    cluesPanel.classList.remove("open");
+  }
+}
+
+
+if (cluesButton) {
+  cluesButton.addEventListener("click", function () {
+    if (!cluesPanel) return;
+
+    cluesPanel.classList.toggle("open");
+  });
+}
+
+
+if (closeClues) {
+  closeClues.addEventListener("click", closeCluesPanel);
+}
+
+
+/* =========================================
+   7. SNOW ANIMATION
+========================================= */
 
 function createSnow() {
   const snowLayer = document.getElementById("snowLayer");
 
-  if (!snowLayer) {
-    return;
-  }
+  if (!snowLayer) return;
 
   snowLayer.replaceChildren();
 
   for (let i = 0; i < 90; i++) {
     const flake = document.createElement("i");
+
     flake.classList.add("flake");
 
     const size = Math.random() * 4 + 2;
@@ -194,44 +240,50 @@ function createSnow() {
   }
 }
 
-/* =========================
-   INTRO → FOREST
-========================= */
+
+/* =========================================
+   8. INTRO → FOREST
+========================================= */
 
 if (enterButton) {
   enterButton.addEventListener("click", function () {
-    gameState.chapter = 1;
-
-    showScreen(forestScene, "Chapter 01 · Forest");
+    showScreen(
+      forestScene,
+      "Chapter 01 · Forest",
+      1
+    );
   });
 }
 
-/* =========================
-   FIND THE LAST SNOWFLAKE
-========================= */
+
+/* =========================================
+   9. DISCOVER THE SNOWFLAKE
+========================================= */
 
 if (snowflake) {
   snowflake.addEventListener("click", function () {
-    if (gameState.foundSnowflake) {
-      return;
-    }
+    if (gameState.foundSnowflake) return;
 
     gameState.foundSnowflake = true;
 
-    discoverClues("snowflake");
+    discoverClue("snowflake");
 
     if (forestMessage) {
       forestMessage.classList.add("show");
     }
 
+    snowflake.classList.add("discovered");
     snowflake.style.opacity = "0";
     snowflake.style.pointerEvents = "none";
+
+    console.log("The last snowflake has been discovered.");
   });
 }
 
-/* =========================
-   FOREST → CABIN
-========================= */
+
+/* =========================================
+   10. FOREST → CABIN
+========================================= */
 
 if (continueForest) {
   continueForest.addEventListener("click", function () {
@@ -239,21 +291,22 @@ if (continueForest) {
       return;
     }
 
-    gameState.chapter = 2;
-
-    showScreen(cabinScene, "Chapter 02 · Cabin");
+    showScreen(
+      cabinScene,
+      "Chapter 02 · Cabin",
+      2
+    );
   });
 }
 
-/* =========================
-   OPEN CABIN DOOR
-========================= */
+
+/* =========================================
+   11. OPEN THE CABIN
+========================================= */
 
 if (cabinDoor) {
   cabinDoor.addEventListener("click", function () {
-    if (gameState.foundCabin) {
-      return;
-    }
+    if (gameState.foundCabin) return;
 
     gameState.foundCabin = true;
 
@@ -263,42 +316,61 @@ if (cabinDoor) {
   });
 }
 
-/* =========================
-   CABIN → INTERIOR
-========================= */
+
+/* =========================================
+   12. CABIN → INTERIOR
+========================================= */
 
 if (enterCabin) {
   enterCabin.addEventListener("click", function () {
-    if (!gameState.foundCabin) {
-      return;
-    }
+    if (!gameState.foundCabin) return;
 
-    showScreen(interiorScene, "Chapter 02 · Inside");
+    showScreen(
+      interiorScene,
+      "Chapter 02 · Inside",
+      2
+    );
   });
 }
 
-/* =========================
-   FIREPLACE RIDDLE
-========================= */
 
-if (fireplace && puzzlePanel) {
-  fireplace.addEventListener("click", function () {
-    if (gameState.puzzleSolved && puzzleFeedback) {
-      puzzleFeedback.textContent =
-        "The riddle is solved. Look for the note.";
+/* =========================================
+   13. FIREPLACE RIDDLE
+========================================= */
 
-      puzzleFeedback.classList.add("success");
-    }
+function openPuzzle() {
+  if (!puzzlePanel) return;
 
-    puzzlePanel.hidden = false;
-  });
+  puzzlePanel.hidden = false;
+
+  if (gameState.puzzleSolved && puzzleFeedback) {
+    puzzleFeedback.textContent =
+      "You solved the riddle. The footprints reveal the way.";
+    puzzleFeedback.classList.add("success");
+  }
 }
+
+
+function closePuzzlePanel() {
+  if (puzzlePanel) {
+    puzzlePanel.hidden = true;
+  }
+}
+
+
+if (fireplace) {
+  fireplace.addEventListener("click", openPuzzle);
+}
+
+
+if (closePuzzle) {
+  closePuzzle.addEventListener("click", closePuzzlePanel);
+}
+
 
 puzzleOptions.forEach(function (option) {
   option.addEventListener("click", function () {
-    if (gameState.puzzleSolved) {
-      return;
-    }
+    if (gameState.puzzleSolved) return;
 
     const answer = option.dataset.answer;
 
@@ -307,16 +379,22 @@ puzzleOptions.forEach(function (option) {
 
       if (puzzleFeedback) {
         puzzleFeedback.textContent =
-          "Correct. Every journey leaves a trace.";
+          "Correct! The more steps you take, the more footprints you leave behind.";
 
         puzzleFeedback.classList.add("success");
       }
 
-      discoverClues("footprints");
+      discoverClue("footprints");
+
+      puzzleOptions.forEach(function (button) {
+        button.disabled = true;
+      });
+
+      console.log("Fireplace riddle solved.");
     } else {
       if (puzzleFeedback) {
         puzzleFeedback.textContent =
-          "Not quite. Think about what you leave behind.";
+          "Not quite. Think carefully: what do your steps leave behind?";
 
         puzzleFeedback.classList.remove("success");
       }
@@ -324,26 +402,19 @@ puzzleOptions.forEach(function (option) {
   });
 });
 
-if (closePuzzle && puzzlePanel) {
-  closePuzzle.addEventListener("click", function () {
-    puzzlePanel.hidden = true;
-  });
-}
 
-/* =========================
-   FIND THE OLD NOTE
-========================= */
+/* =========================================
+   14. DISCOVER THE OLD NOTE
+========================================= */
 
 if (note) {
   note.addEventListener("click", function () {
     if (!gameState.puzzleSolved) {
-      if (puzzlePanel) {
-        puzzlePanel.hidden = false;
-      }
+      openPuzzle();
 
       if (puzzleFeedback) {
         puzzleFeedback.textContent =
-          "The note is sealed in silence. Solve the fireplace riddle first.";
+          "The note is sealed. Solve the fireplace riddle first.";
 
         puzzleFeedback.classList.remove("success");
       }
@@ -351,124 +422,193 @@ if (note) {
       return;
     }
 
-    if (gameState.foundNote) {
-      return;
-    }
+    if (gameState.foundNote) return;
 
     gameState.foundNote = true;
 
-    discoverClues("cabin-note");
+    discoverClue("cabin-note");
 
     if (noteMessage) {
       noteMessage.classList.add("show");
     }
+
+    console.log("The old note has been discovered.");
   });
 }
 
-/* =========================
-   INTERIOR → MOUNTAIN
-========================= */
+
+/* =========================================
+   15. INTERIOR → MOUNTAIN
+========================================= */
 
 if (continueCabin) {
   continueCabin.addEventListener("click", function () {
-    if (!gameState.foundNote) {
-      return;
-    }
+    if (!gameState.foundNote) return;
 
-    gameState.chapter = 3;
+    gameState.mountainUnlocked = true;
 
-    showScreen(mountainScene, "Chapter 03 · Mountain");
+    showScreen(
+      mountainScene,
+      "Chapter 03 · Mountain",
+      3
+    );
   });
 }
 
-/* =========================
-   MOUNTAIN SYMBOL
-========================= */
+
+/* =========================================
+   16. MOUNTAIN DISCOVERY
+========================================= */
 
 if (mountainSymbol) {
   mountainSymbol.addEventListener("click", function () {
+    if (!gameState.mountainUnlocked) {
+      return;
+    }
+
+    if (!hasClue("snowflake") ||
+        !hasClue("footprints") ||
+        !hasClue("cabin-note")) {
+      if (mountainMessage) {
+        mountainMessage.classList.add("show");
+
+        const heading = mountainMessage.querySelector("h3");
+        const paragraph = mountainMessage.querySelector("p:not(.message-label)");
+
+        if (heading) {
+          heading.textContent = "Something is still missing.";
+        }
+
+        if (paragraph) {
+          paragraph.textContent =
+            "The symbol responds to the clues you have collected. Keep searching.";
+        }
+      }
+
+      return;
+    }
+
+    gameState.gameCompleted = true;
+
     if (mountainMessage) {
       mountainMessage.classList.add("show");
+
+      const heading = mountainMessage.querySelector("h3");
+      const paragraph = mountainMessage.querySelector("p:not(.message-label)");
+
+      if (heading) {
+        heading.textContent = "The winter remembers.";
+      }
+
+      if (paragraph) {
+        paragraph.textContent =
+          "You followed the footprints, solved the riddle, and uncovered the truth. The last snowflake was never lost. It was waiting for someone to find its story.";
+      }
     }
+
+    if (status) {
+      status.textContent = "The End · A New Beginning";
+    }
+
+    console.log("The Last Snowflake: story completed.");
   });
 }
 
-/* =========================
-   CLUES PANEL
-========================= */
 
-if (cluesButton && cluesPanel) {
-  cluesButton.addEventListener("click", function () {
-    cluesPanel.classList.toggle("open");
+
+
+
+
+function restartGame() {
+  gameState.chapter = 0;
+  gameState.foundSnowflake = false;
+  gameState.foundCabin = false;
+  gameState.puzzleSolved = false;
+  gameState.foundNote = false;
+  gameState.mountainUnlocked = false;
+  gameState.gameCompleted = false;
+  gameState.clues.length = 0;
+
+  if (forestMessage) {
+    forestMessage.classList.remove("show");
+  }
+
+  if (cabinMessage) {
+    cabinMessage.classList.remove("show");
+  }
+
+  if (noteMessage) {
+    noteMessage.classList.remove("show");
+  }
+
+  if (mountainMessage) {
+    mountainMessage.classList.remove("show");
+
+    const heading = mountainMessage.querySelector("h3");
+    const paragraph = mountainMessage.querySelector("p:not(.message-label)");
+
+    if (heading) {
+      heading.textContent = "You finally found the source.";
+    }
+
+    if (paragraph) {
+      paragraph.textContent =
+        "But the last answer is waiting beneath the ice.";
+    }
+  }
+
+  if (snowflake) {
+    snowflake.style.opacity = "1";
+    snowflake.style.pointerEvents = "auto";
+    snowflake.classList.remove("discovered");
+  }
+
+  if (puzzlePanel) {
+    puzzlePanel.hidden = true;
+  }
+
+  if (puzzleFeedback) {
+    puzzleFeedback.textContent = "";
+    puzzleFeedback.classList.remove("success");
+  }
+
+  puzzleOptions.forEach(function (button) {
+    button.disabled = false;
   });
+
+  closeCluesPanel();
+
+  renderClues();
+
+  showScreen(intro, "Prologue", 0);
+
+  console.log("Game restarted. Progress has been reset.");
 }
 
-if (closeClues && cluesPanel) {
-  closeClues.addEventListener("click", function () {
-    cluesPanel.classList.remove("open");
-  });
-}
-
-/* =========================
-   RESTART GAME
-========================= */
 
 if (restart) {
-  restart.addEventListener("click", function () {
-    gameState.chapter = 0;
-    gameState.foundSnowflake = false;
-    gameState.foundCabin = false;
-    gameState.foundNote = false;
-    gameState.puzzleSolved = false;
-
-    gameState.clues.length = 0;
-
-    if (puzzlePanel) {
-      puzzlePanel.hidden = true;
-    }
-
-    if (puzzleFeedback) {
-      puzzleFeedback.textContent = "";
-      puzzleFeedback.classList.remove("success");
-    }
-
-    renderClues();
-
-    if (cluesPanel) {
-      cluesPanel.classList.remove("open");
-    }
-
-    if (forestMessage) {
-      forestMessage.classList.remove("show");
-    }
-
-    if (cabinMessage) {
-      cabinMessage.classList.remove("show");
-    }
-
-    if (noteMessage) {
-      noteMessage.classList.remove("show");
-    }
-
-    if (mountainMessage) {
-      mountainMessage.classList.remove("show");
-    }
-
-    if (snowflake) {
-      snowflake.style.opacity = "1";
-      snowflake.style.pointerEvents = "auto";
-    }
-
-    showScreen(intro, "Prologue");
-
-    console.log("Game restarted. All clues cleared.");
-  });
+  restart.addEventListener("click", restartGame);
 }
 
-/* =========================
-   START GAME
-========================= */
+
+/* =========================================
+   18. ESCAPE KEY
+   Close open panels using the keyboard
+========================================= */
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closePuzzlePanel();
+    closeCluesPanel();
+  }
+});
+
+
+/* =========================================
+   19. INITIALIZE GAME
+========================================= */
 
 createSnow();
 renderClues();
-showScreen(intro, "Prologue");
+
+showScreen(intro, "Prologue", 0);

@@ -1,124 +1,53 @@
-# ❄️ The Last Snowflake
+# The Last Snowflake
 
+*A small winter mystery game by Nouran Ehab.*
 
-> Something went wrong this winter.
+Something strange is happening in winter. The snow is disappearing, but there is still one glowing snowflake deep in the forest.
 
-The snow is disappearing.
+I started this project because I wanted to make a small game, not just a page with a winter background. I wanted players to explore, find things, and slowly discover what happened.
 
-Deep inside a quiet winter forest, one snowflake is still glowing.
+## About the game
 
-You found it.
+You start in a frozen forest and find a glowing snowflake. As you explore, you discover different places and clues that help you follow the story.
 
-Now you have to explore, look for clues, and figure out what happened.
+Things I've been working on:
 
-**The Last Snowflake** is a small interactive web experience where the user is not just watching a winter scene, but actually becoming part of it.
+- Falling snow and a winter atmosphere.
+- Different scenes for the story.
+- Objects you can click to discover messages.
+- A clue panel that shows what you've found.
+- A restart button.
 
-## ✦ What is this?
+I'm still figuring out how to make the clues and story feel more connected.
 
-I wanted to build something that feels more like a small world than a normal website.
+## Things I learned
 
-You start with a short introduction, enter the forest, find the glowing snowflake, discover a clue, and continue the story.
+One of the parts I worked on was the clue system.
 
-The project uses simple web technologies, but the goal is to make the experience feel alive through movement, interaction, animation, and atmosphere.
+I needed the game to keep track of which clues the player had already found. I used an array in JavaScript to store them, and I learned how to check whether a clue was already there before adding it again.
 
-## ✦ What can you do?
+I also worked on updating the clue list and its counter when a new clue is found. This helped me understand how JavaScript can change what appears on the page.
 
-- Enter the winter world
-- Explore the forest
-- Interact with the glowing snowflake
-- Discover a clue
-- Follow the story
-- Move your mouse and see the environment react
-- Restart the experience and try again
+I had to pay attention to the connection between my HTML and JavaScript, too. If an element ID in the code doesn't match the one in the HTML, the feature might not work as expected.
 
-## ✦ Built With
-=======
-This winter, something went wrong.
+## What I'm still working on
 
-The snow is disappearing, and there's only one glowing snowflake left in the forest.
+Getting the separate interactions to work together takes more effort than making each button work on its own. I need to think about what the player has already done and what should happen next.
 
-I wanted to make a small game where you can explore a winter world and find out what's going on, instead of just looking at a pretty winter scene.
+I also don't want to keep adding features without checking the ones I already have. I'd rather get the current game working properly before making it bigger.
 
-## What's the idea?
+## Built with
 
-You start in the forest and find a strange glowing snowflake. Then you discover that someone was there before you.
+- **HTML** — the structure of the game.
+- **CSS** — the design, winter atmosphere, and animations.
+- **JavaScript** — the interactions, clue system, and game state.
 
-So, you keep exploring to find out what happened and if there's more to this story.
-
-I want the game to feel calm but a little mysterious, like you're exploring a place and slowly putting the pieces together.
-
-## What can you do right now?
-
-- Enter the forest
-- Find the glowing snowflake
-- Discover the first clue
-- Follow the story
-- Interact with the scene and watch the snow fall
+I used AI assistance to help me understand some JavaScript concepts and work through coding problems
 
 ## What's next?
 
-I'm still working on the game, and I want to add more places to explore, like an old cabin, a mountain, and a frozen lake.
+I want to add puzzles that connect to the clues instead of making exploration only about clicking objects. I also want to develop the mystery and make the ending feel connected to what the player has discovered.
 
-I also want to add more clues, sounds, and different endings as the story grows.
+For now, I'm focusing on making the existing features work together properly.
 
-## Made with
->>>>>>> master
-
-- HTML
-- CSS
-- JavaScript
-
-<<<<<<< HEAD
-No frameworks.
-No game engine.
-
-Just the browser and a lot of CSS + JavaScript.
-
-## ✦ The Idea
-
-I didn't want to make another website where you just scroll through sections.
-
-I wanted the user to feel curious about what is happening.
-
-Why is the snow disappearing?
-
-Why is this snowflake still glowing?
-
-What happened here?
-
-That curiosity is what moves the experience forward.
-
-## ✦ What's Next?
-
-The current version is the beginning of the world.
-
-I want to expand it with:
-
-- 🌲 The Forest
-- 🏠 The Cabin
-- ⛰️ The Mountain
-- 🧊 The Frozen Lake
-- More clues
-- An inventory system
-- Different endings
-- Sound and ambient effects
-- More interactions
-
-The idea is to slowly turn the small experience into a complete interactive winter story.
-
-## ✦ Made by
-
-**Nouran Ehab**
-
-Built for **Hack Club Snowglobe / Horizon**.
-
-This project is about experimenting, building, and turning a simple idea into something you can actually interact with.
-=======
-I'm building everything with these basics, learning as I go, and fixing things when they don't work the way I want.
-
-## About
-
-Made by Nouran Ehab for Hack Club Snowglobe.
-
-This is still a work in progress, and I'm excited to see how far I can take this idea.
-
+Made for Hack Club Snowglobe.
