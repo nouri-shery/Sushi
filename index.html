@@ -37,9 +37,11 @@
     </div>
 
     <!-- Snow particles -->
+
     <div id="snowLayer"></div>
 
     <!-- Top bar -->
+
     <header class="topbar">
       <div class="brand">
         THE LAST SNOWFLAKE
@@ -51,16 +53,13 @@
         <div id="status">prologue</div>
       </div>
     </header>
-    <aside id="cluesPanel" class="clues">
-    
-<aside id="cluesPanel" class="clues-panel">
+   <aside id="cluesPanel" class="clues-panel">
   <div class="clues-header">
-    <h3>Your clues</h3>
-    <button id="closeClues" aria-label="Close clues">×</button>
+    <h3>Collected Clues</h3>
+    <button id="closeClues" aria-label="Close clues">&times;</button>
   </div>
 
-  <p id="emptyClues">You haven't found anything yet.</p>
-
+  <p id="emptyClues">You haven't discovered any clues yet.</p>
   <ul id="cluesList"></ul>
 </aside>
     <!-- ========================= -->
@@ -271,7 +270,90 @@
       </div>
 
 
-      <div class="interior-world">
+     <div class="interior-world">
+
+  <!-- Fireplace -->
+  <button
+    id="fireplace"
+    class="object fireplace interact"
+    aria-label="Inspect the fireplace"
+  >
+    <span class="fire"></span>
+  </button>
+
+  <!-- Puzzle Panel -->
+  <div id="puzzlePanel" class="puzzle-panel" hidden>
+    <p class="message-label">A RIDDLE IN THE FIRE</p>
+
+    <h3>What do you leave behind?</h3>
+
+    <p>
+      The more you take, the more you leave behind.
+      What are they?
+    </p>
+
+    <div class="puzzle-options">
+      <button class="puzzle-option" data-answer="snowflakes">
+        Snowflakes
+      </button>
+
+      <button class="puzzle-option" data-answer="footprints">
+        Footprints
+      </button>
+
+      <button class="puzzle-option" data-answer="memories">
+        Memories
+      </button>
+    </div>
+
+    <p id="puzzleFeedback" aria-live="polite"></p>
+
+    <button id="closePuzzle" class="small-button">
+      Close
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="table">
+    <button
+      id="note"
+      class="object note interact"
+      aria-label="Inspect the old note"
+    >
+      ✦
+    </button>
+  </div>
+
+  <!-- Window -->
+  <div class="interior-window">
+    <div class="window-snow"></div>
+  </div>
+
+  <!-- Note Message -->
+  <div id="noteMessage" class="message note-message">
+    <p class="message-label">MEMORY FRAGMENT 02 / 03</p>
+
+    <h3>
+      “The snowflake was never meant to disappear.”
+    </h3>
+
+    <p>
+      Under the note, you find a strange symbol pointing toward the mountain.
+    </p>
+
+    <button id="continueCabin" class="small-button">
+      Go to the mountain →
+    </button>
+  </div>
+
+</div>
+
+  <p id="puzzleFeedback" aria-live="polite"></p>
+
+  <button id="closePuzzle" class="small-button">
+    Close
+  </button>
+</div>
 
         <!-- Fireplace -->
         <button id="fireplace" class="object fireplace interact">
@@ -754,7 +836,6 @@
     </section>
 
   </main>
-
   <script src="script.js"></script>
 
 </body>
