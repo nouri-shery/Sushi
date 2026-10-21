@@ -2,76 +2,52 @@
 
 *A small winter mystery game by Nouran Ehab.*
 
-Something went wrong this winter.
+Something strange is happening in winter. The snow is disappearing, but there is still one glowing snowflake deep in the forest.
 
-The snow is disappearing, and deep inside a quiet forest, one snowflake is still glowing.
+I started this project because I wanted to make a small game, not just a page with a winter background. I wanted players to explore, find things, and slowly discover what happened.
 
-I wanted to make a small game where you explore a winter world and slowly find out what happened. I didn't want it to be just a pretty scene with snow falling. I wanted the player to have a reason to explore.
+## About the game
 
-That is how I started **The Last Snowflake**.
+You start in a frozen forest and find a glowing snowflake. As you explore, you discover different places and clues that help you follow the story.
 
-## Why I made this
+Things I've been working on:
 
-I like making things with code, especially when I can turn an idea into something people can actually interact with.
-
-For this project, I wanted to try making a game using the web technologies I already know: HTML, CSS, and JavaScript.
-
-I chose a winter mystery because I wanted the game to feel quiet, a little strange, and interesting enough to make people curious about what comes next.
-
-## What is in the game?
-
-The player enters a winter forest and discovers a glowing snowflake. From there, they can explore the world, find clues, and follow the story.
-
-Some of the things I have been working on are:
-
-- A winter atmosphere with falling snow.
+- Falling snow and a winter atmosphere.
 - Different scenes for the story.
-- Interactive objects that reveal messages.
-- A clue panel that keeps track of discovered clues.
-- A restart button so the player can start again.
+- Objects you can click to discover messages.
+- A clue panel that shows what you've found.
+- A restart button.
 
-I am still working on making the interactions feel connected, instead of having each object do something separate.
+I'm still figuring out how to make the clues and story feel more connected.
 
-## What I learned
+## Things I learned
 
-One thing I had to understand better was how JavaScript connects to HTML.
+One of the parts I worked on was the clue system.
 
-For example, when I added the clue panel, I needed to make sure that clicking an object actually added a clue to the list. I also had to think about what should happen if the player clicked the same object more than once.
+I needed the game to keep track of which clues the player had already found. I used an array in JavaScript to store them, and I learned how to check whether a clue was already there before adding it again.
 
-This helped me understand why keeping track of the game's state matters. The game needs to know what the player has already discovered, not just display a message every time something is clicked.
+I also worked on updating the clue list and its counter when a new clue is found. This helped me understand how JavaScript can change what appears on the page.
 
-I am also learning to check my code more carefully when something doesn't work. Sometimes the problem is not the whole feature. It can be a mismatched element ID, a missing HTML element, or a condition that runs at the wrong time.
+I had to pay attention to the connection between my HTML and JavaScript, too. If an element ID in the code doesn't match the one in the HTML, the feature might not work as expected.
 
-## What was difficult?
+## What I'm still working on
 
-Connecting the different parts of the game was harder than I expected.
+Getting the separate interactions to work together takes more effort than making each button work on its own. I need to think about what the player has already done and what should happen next.
 
-It is one thing to make a button work. It is another thing to make sure it works at the right point in the story, updates the clue list, and still behaves correctly when the player restarts the game.
+I also don't want to keep adding features without checking the ones I already have. I'd rather get the current game working properly before making it bigger.
 
-I am learning that adding more features is not always the answer. I need to understand how the existing parts work together before making the game bigger.
+## Built with
 
-## How I built it
+- **HTML** — the structure of the game.
+- **CSS** — the design, winter atmosphere, and animations.
+- **JavaScript** — the interactions, clue system, and game state.
 
-The project uses:
-
-- **HTML** for the structure of the game.
-- **CSS** for the winter atmosphere, layout, and animations.
-- **JavaScript** for interactions, clues, and game progress.
-
-I used AI assistance during development to help explain JavaScript concepts and work through some coding problems. I am reviewing the code carefully and working to understand the logic behind each feature, rather than treating code that I do not understand as finished work.
+I used AI assistance to help me understand some JavaScript concepts and work through coding problems
 
 ## What's next?
 
-I want to make the mystery more interesting by adding puzzles that connect to the clues the player finds.
+I want to add puzzles that connect to the clues instead of making exploration only about clicking objects. I also want to develop the mystery and make the ending feel connected to what the player has discovered.
 
-I also want to improve the story and make the player's choices and discoveries feel more meaningful.
+For now, I'm focusing on making the existing features work together properly.
 
-Before adding too much, I want to make sure the current version works properly from beginning to end.
-
-## Made by
-
-**Nouran Ehab**
-
-Built for Hack Club Snowglobe.
-
-This project is a work in progress. I am using it to practise JavaScript, learn from mistakes, and get better at building interactive experiences one step at a time.'
+Made for Hack Club Snowglobe.

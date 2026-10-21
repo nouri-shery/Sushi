@@ -1,12 +1,4 @@
 
-/* ================================================================== ==  ===============
-   THE LAST SNOWFLAKE
-   Interactive Adventure Game
-========================================= */
-
-/* =========================================
-   1. HTML ELEMENTS
-========================================= */
 
 const intro = document.getElementById("intro");
 const forestScene = document.getElementById("forestScene");
@@ -523,9 +515,9 @@ if (mountainSymbol) {
 }
 
 
-/* =========================================
-   17. RESTART GAME
-========================================= */
+
+
+
 
 function restartGame() {
   gameState.chapter = 0;
