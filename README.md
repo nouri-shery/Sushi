@@ -5,7 +5,8 @@
 Something strange is happening in winter. The snow is disappearing, but there is still one glowing snowflake deep in the forest.
 
 I started this project because I wanted to make a small game, not just a page with a winter background. I wanted players to explore, find things, and slowly discover what happened.
-
+ 
+ 
 ## About the game
 
 You start in a frozen forest and find a glowing snowflake. As you explore, you discover different places and clues that help you follow the story.
